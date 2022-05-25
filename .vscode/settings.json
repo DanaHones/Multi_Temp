@@ -6,5 +6,6 @@
         "*.ino": "cpp"
     },
     "particle.firmwareVersion": "2.3.0",
-    "particle.targetPlatform": "argon"
+    "particle.targetPlatform": "argon",
+    "particle.targetDevice": "DLH_Argon003"
 }
