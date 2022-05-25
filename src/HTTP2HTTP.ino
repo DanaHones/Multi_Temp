@@ -20,6 +20,9 @@ http_header_t headers[] = {
 http_request_t request;
 http_response_t response;
 
+char json_buffer[256];
+JSONBufferWriter writer(json_buffer, sizeof(json_buffer));
+
 void setup() {
 Serial.begin(9600);
 }
@@ -32,6 +35,24 @@ return;
 Serial.println();
 Serial.println("Application>\tStart of Loop.");
 // Request path and body can be set at runtime or at setup.
+
+writer.beginObject();
+    writer.name("zoneid").value(1);
+    writer.name("zonetemp").value(178);
+writer.endObject();
+writer.buffer()[std::min(writer.bufferSize(), writer.dataSize())] = 0;
+Serial.println("First Json");
+Serial.println(writer.buffer());
+
+writer.beginObject();
+    writer.name("zoneid").value(2);
+    writer.name("zonetemp").value(68);
+writer.endObject();
+writer.buffer()[std::min(writer.bufferSize(), writer.dataSize())] = 0;
+Serial.println("Second Json");
+Serial.println(writer.buffer());
+
+
 request.hostname = "192.168.1.82";
 request.port = 8888;
 request.path = "/api/readings/1";
