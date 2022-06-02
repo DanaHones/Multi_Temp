@@ -119,6 +119,26 @@ void setup()
     sensorHexString[11] = "28:D9:6A:48:F6:D9:3C:B7";
     sensorAddresses[11][0] = 0x28; sensorAddresses[11][1] = 0xD9; sensorAddresses[11][2] = 0x6A; sensorAddresses[11][3] = 0x48; 
     sensorAddresses[11][4] = 0xF6; sensorAddresses[11][5] = 0xD9; sensorAddresses[11][6] = 0x3C; sensorAddresses[11][7] = 0xB7;     
+
+    // Sensor 13
+    sensorHexString[12] = "28:7D:6B:96:F0:01:3C:11";
+    sensorAddresses[12][0] = 0x28; sensorAddresses[12][1] = 0x7D; sensorAddresses[12][2] = 0x6B; sensorAddresses[12][3] = 0x96; 
+    sensorAddresses[12][4] = 0xF0; sensorAddresses[12][5] = 0x01; sensorAddresses[12][6] = 0x3C; sensorAddresses[12][7] = 0x11;     
+
+    // Sensor 14
+    sensorHexString[13] = "28:11:91:48:F6:B9:3C:05";
+    sensorAddresses[13][0] = 0x28; sensorAddresses[13][1] = 0x11; sensorAddresses[13][2] = 0x91; sensorAddresses[13][3] = 0x48; 
+    sensorAddresses[13][4] = 0xF6; sensorAddresses[13][5] = 0xB9; sensorAddresses[13][6] = 0x3C; sensorAddresses[13][7] = 0x05;     
+
+    // Sensor 15
+    sensorHexString[14] = "28:B8:E6:48:F6:C4:3C:CC";
+    sensorAddresses[14][0] = 0x28; sensorAddresses[14][1] = 0xB8; sensorAddresses[14][2] = 0xE6; sensorAddresses[14][3] = 0x48; 
+    sensorAddresses[14][4] = 0xF6; sensorAddresses[14][5] = 0xC4; sensorAddresses[14][6] = 0x3C; sensorAddresses[14][7] = 0xCC;     
+
+    // Sensor 16
+    sensorHexString[15] = "28:70:C7:48:F6:37:3C:0B";
+    sensorAddresses[15][0] = 0x28; sensorAddresses[15][1] = 0x70; sensorAddresses[15][2] = 0xC7; sensorAddresses[15][3] = 0x48; 
+    sensorAddresses[15][4] = 0xF6; sensorAddresses[15][5] = 0x37; sensorAddresses[15][6] = 0x3C; sensorAddresses[15][7] = 0x0B;     
   }
 
   Serial.println("Let's get started!");
