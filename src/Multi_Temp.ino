@@ -200,7 +200,7 @@ double getTemp(uint8_t addr[8]) {
 
 void showAddress(uint8_t addr[8], bool lf)
 {
-  sensorIdString[sensorIdStringSize] = {'0'};
+  sensorIdString[sensorIdStringSize - 1] = {'0'};
   sprintf(sensorIdString, "%02X:%02X:%02X:%02X:%02X:%02X:%02X:%02X",addr[0],addr[1],addr[2],addr[3],addr[4],addr[5], addr[6], addr[7]);
 
   if (lf)
@@ -216,7 +216,7 @@ void showAddress(uint8_t addr[8], bool lf)
 void Set_ISODateTime()
 {
   // 2019-01-06T17:16:40.000
-  isoDateTimeString[isoDateTimeStringSize] = {0};
+  isoDateTimeString[isoDateTimeStringSize - 1] = {0};
     
   sprintf(isoDateTimeString, "%04u-%02u-%02uT%02u:%02u:%02u",
     Time.year(),
