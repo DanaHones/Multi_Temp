@@ -75,3 +75,4 @@ DirectoryA/**/DirectoryB/
 # (supported since 1.6.2.1)
 \#*#
 src/Multi_Temp.cpp
+target/
