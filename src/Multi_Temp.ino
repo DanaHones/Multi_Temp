@@ -4,12 +4,13 @@
 static uint32_t msSample = 0;
 
 const int MAXRETRY = 3;
-const uint32_t msSampleTime = 10000;
+const uint32_t msSampleTime = 60000;
 const int16_t dsData = D4;
 const int16_t jsonBufferSize = 256;
 const int16_t isoDateTimeStringSize = 25;
 const int16_t sensorIdStringSize = 25;
 const int BadValue = -100;
+const byte ExactTime = 1;
 
 DS18B20 ds18b20(dsData);
 const int nSENSORS = 16;
@@ -50,7 +51,7 @@ void setup()
   Time.zone(-6);
 
   // REST call
-  request.hostname = "10.0.0.50";
+  request.hostname = "10.0.0.48";
   request.port = 8888;
 
   Running = "RUN";
@@ -80,16 +81,19 @@ void loop()
 {
   if (Running != "STOP")
   {
-    if (millis() - msSample >= msSampleTime)
+    if (Time.second() == 0)
     {
-      msSample = millis();
-      if (Running == "RUN")
+      if (millis() - msSample >= msSampleTime)
       {
-        Scan_Sensors();
-      }
-      else
-      {
-        Show_Found_Sensors();
+        msSample = millis();
+        if (Running == "RUN")
+        {
+          Scan_Sensors();
+        }
+        else
+        {
+          Show_Found_Sensors();
+        }
       }
     }
   }
@@ -268,31 +272,31 @@ void Create_TempZone_Json(char *ptr, int size, String isoDateTime, String sensor
 void Load_Sensor_Arrays()
 {
    // Sensor 1
-    sensorFlag[0] = 0;
+    sensorFlag[0] = 1;
     sensorHexString[0] = "28:DE:29:95:F0:01:3C:F6";
     sensorAddresses[0][0] = 0x28; sensorAddresses[0][1] = 0xDE; sensorAddresses[0][2] = 0x29; sensorAddresses[0][3] = 0x95; 
     sensorAddresses[0][4] = 0xF0; sensorAddresses[0][5] = 0x01; sensorAddresses[0][6] = 0x3C; sensorAddresses[0][7] = 0xF6; 
 
     // Sensor 2
-    sensorFlag[1] = 0;
+    sensorFlag[1] = 1;
     sensorHexString[1] = "28:5F:9F:95:F0:01:3C:F8";
     sensorAddresses[1][0] = 0x28; sensorAddresses[1][1] = 0x5F; sensorAddresses[1][2] = 0x9F; sensorAddresses[1][3] = 0x95; 
     sensorAddresses[1][4] = 0xF0; sensorAddresses[1][5] = 0x01; sensorAddresses[1][6] = 0x3C; sensorAddresses[1][7] = 0xF8; 
 
     // Sensor 3
-    sensorFlag[2] = 0;
+    sensorFlag[2] = 1;
     sensorHexString[2] = "28:79:6A:96:F0:01:3C:00";
     sensorAddresses[2][0] = 0x28; sensorAddresses[2][1] = 0x79; sensorAddresses[2][2] = 0x6A; sensorAddresses[2][3] = 0x96; 
     sensorAddresses[2][4] = 0xF0; sensorAddresses[2][5] = 0x01; sensorAddresses[2][6] = 0x3C; sensorAddresses[2][7] = 0x00; 
 
     // Sensor 4
-    sensorFlag[3] = 0;
+    sensorFlag[3] = 1;
     sensorHexString[3] = "28:6C:E1:95:F0:01:3C:83";
     sensorAddresses[3][0] = 0x28; sensorAddresses[3][1] = 0x6C; sensorAddresses[3][2] = 0xE1; sensorAddresses[3][3] = 0x95; 
     sensorAddresses[3][4] = 0xF0; sensorAddresses[3][5] = 0x01; sensorAddresses[3][6] = 0x3C; sensorAddresses[3][7] = 0x83; 
 
     // Sensor 5
-    sensorFlag[4] = 0;
+    sensorFlag[4] = 1;
     sensorHexString[4] = "28:04:ED:49:F6:17:3C:44";
     sensorAddresses[4][0] = 0x28; sensorAddresses[4][1] = 0x04; sensorAddresses[4][2] = 0xED; sensorAddresses[4][3] = 0x49; 
     sensorAddresses[4][4] = 0xF6; sensorAddresses[4][5] = 0x17; sensorAddresses[4][6] = 0x3C; sensorAddresses[4][7] = 0x44; 
@@ -304,31 +308,31 @@ void Load_Sensor_Arrays()
     sensorAddresses[5][4] = 0xF6; sensorAddresses[5][5] = 0xF8; sensorAddresses[5][6] = 0x3C; sensorAddresses[5][7] = 0xE0; 
 
     // Sensor 7
-    sensorFlag[6] = 0;
+    sensorFlag[6] = 1;
     sensorHexString[6] = "28:C3:B8:48:F6:B4:3C:2D";
     sensorAddresses[6][0] = 0x28; sensorAddresses[6][1] = 0xC3; sensorAddresses[6][2] = 0xB8; sensorAddresses[6][3] = 0x48; 
     sensorAddresses[6][4] = 0xF6; sensorAddresses[6][5] = 0xB4; sensorAddresses[6][6] = 0x3C; sensorAddresses[6][7] = 0x2D; 
 
     // Sensor 8
-    sensorFlag[7] = 0;
+    sensorFlag[7] = 1;
     sensorHexString[7] = "28:4A:41:48:F6:7F:3C:93";
     sensorAddresses[7][0] = 0x28; sensorAddresses[7][1] = 0x4A; sensorAddresses[7][2] = 0x41; sensorAddresses[7][3] = 0x48; 
     sensorAddresses[7][4] = 0xF6; sensorAddresses[7][5] = 0x7F; sensorAddresses[7][6] = 0x3C; sensorAddresses[7][7] = 0x93; 
 
     // Sensor 9
-    sensorFlag[8] = 0;
+    sensorFlag[8] = 1;
     sensorHexString[8] = "28:66:63:48:F6:27:3C:22";
     sensorAddresses[8][0] = 0x28; sensorAddresses[8][1] = 0x66; sensorAddresses[8][2] = 0x63; sensorAddresses[8][3] = 0x48; 
     sensorAddresses[8][4] = 0xF6; sensorAddresses[8][5] = 0x27; sensorAddresses[8][6] = 0x3C; sensorAddresses[8][7] = 0x22; 
 
     // Sensor 10
-    sensorFlag[9] = 0;
+    sensorFlag[9] = 1;
     sensorHexString[9] = "28:B1:FE:48:F6:71:3C:E5";
     sensorAddresses[9][0] = 0x28; sensorAddresses[9][1] = 0xB1; sensorAddresses[9][2] = 0xFE; sensorAddresses[9][3] = 0x48; 
     sensorAddresses[9][4] = 0xF6; sensorAddresses[9][5] = 0x71; sensorAddresses[9][6] = 0x3C; sensorAddresses[9][7] = 0xE5; 
 
     // Sensor 11
-    sensorFlag[10] = 0;
+    sensorFlag[10] = 1;
     sensorHexString[10] = "28:70:92:48:F6:1E:3C:3F";
     sensorAddresses[10][0] = 0x28; sensorAddresses[10][1] = 0x70; sensorAddresses[10][2] = 0x92; sensorAddresses[10][3] = 0x48; 
     sensorAddresses[10][4] = 0xF6; sensorAddresses[10][5] = 0x1E; sensorAddresses[10][6] = 0x3C; sensorAddresses[10][7] = 0x3F; 
@@ -340,19 +344,19 @@ void Load_Sensor_Arrays()
     sensorAddresses[11][4] = 0xF6; sensorAddresses[11][5] = 0xD9; sensorAddresses[11][6] = 0x3C; sensorAddresses[11][7] = 0xB7;     
 
     // Sensor 13
-    sensorFlag[12] = 0;
+    sensorFlag[12] = 1;
     sensorHexString[12] = "28:7D:6B:96:F0:01:3C:11";
     sensorAddresses[12][0] = 0x28; sensorAddresses[12][1] = 0x7D; sensorAddresses[12][2] = 0x6B; sensorAddresses[12][3] = 0x96; 
     sensorAddresses[12][4] = 0xF0; sensorAddresses[12][5] = 0x01; sensorAddresses[12][6] = 0x3C; sensorAddresses[12][7] = 0x11;     
 
     // Sensor 14
-    sensorFlag[13] = 0;
+    sensorFlag[13] = 1;
     sensorHexString[13] = "28:11:91:48:F6:B9:3C:05";
     sensorAddresses[13][0] = 0x28; sensorAddresses[13][1] = 0x11; sensorAddresses[13][2] = 0x91; sensorAddresses[13][3] = 0x48; 
     sensorAddresses[13][4] = 0xF6; sensorAddresses[13][5] = 0xB9; sensorAddresses[13][6] = 0x3C; sensorAddresses[13][7] = 0x05;     
 
     // Sensor 15
-    sensorFlag[14] = 0;
+    sensorFlag[14] = 1;
     sensorHexString[14] = "28:B8:E6:48:F6:C4:3C:CC";
     sensorAddresses[14][0] = 0x28; sensorAddresses[14][1] = 0xB8; sensorAddresses[14][2] = 0xE6; sensorAddresses[14][3] = 0x48; 
     sensorAddresses[14][4] = 0xF6; sensorAddresses[14][5] = 0xC4; sensorAddresses[14][6] = 0x3C; sensorAddresses[14][7] = 0xCC;     
