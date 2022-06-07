@@ -12,6 +12,7 @@ const int16_t sensorIdStringSize = 25;
 const int BadValue = -100;
 const byte ExactTime = 1;
 
+
 DS18B20 ds18b20(dsData);
 const int nSENSORS = 16;
 //retained uint8_t sensorAddresses[nSENSORS][8];
@@ -46,6 +47,7 @@ void setup()
 	Particle.function("SetRunning", SetRunning);
   Particle.function("SetAPI_Call", SetAPI_Call);
   Particle.function("SetHoneyWell", SetHoneyWell);
+  Particle.function("OneShot", OneShot);
 
   // Time zone for MST
   Time.zone(-6);
@@ -83,7 +85,7 @@ void loop()
   {
     if (Time.second() == 0)
     {
-      if (millis() - msSample >= msSampleTime)
+      if (Time.minute() == 0)
       {
         msSample = millis();
         if (Running == "RUN")
@@ -246,8 +248,14 @@ int SetAPI_Call(String value)
 
 int SetHoneyWell (String value)
 {    
-    HoneyWellRead = value;
-    return 1;
+  HoneyWellRead = value;
+  return 1;
+}
+
+int OneShot (String value)
+{
+  Scan_Sensors();
+  return 1;
 }
 
 void Create_TempZone_Json(char *ptr, int size, String isoDateTime, String sensorId, int zoneTemp)
