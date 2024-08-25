@@ -76,3 +76,4 @@ DirectoryA/**/DirectoryB/
 \#*#
 src/Multi_Temp.cpp
 target/
+nul
